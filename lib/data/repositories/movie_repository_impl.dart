@@ -6,6 +6,8 @@ import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_show.dart';
+import 'package:ditonton/domain/entities/tv_show_detail.dart';
 import 'package:ditonton/domain/repositories/movie_repository.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
@@ -125,5 +127,89 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Either<Failure, List<Movie>>> getWatchlistMovies() async {
     final result = await localDataSource.getWatchlistMovies();
     return Right(result.map((data) => data.toEntity()).toList());
+  }
+
+  @override
+  Future<Either<Failure, List<TvShow>>> getNowPlayingTvShows() async {
+    try {
+      final result = await remoteDataSource.getNowPlayingTvShows();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvShow>>> getPopularTvShows() async {
+    try {
+      final result = await remoteDataSource.getPopularTvShows();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvShow>>> getTopRatedTvShows() async {
+    try {
+      final result = await remoteDataSource.getTopRatedTvShows();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, TvShowDetail>> getTvShowsDetail(int id) async {
+    try {
+      final result = await remoteDataSource.getTvShowDetail(id);
+      return Right(result.toEntity());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<TvShow>>> getTvShowsRecommendations(int id) async {
+    try {
+      final result = await remoteDataSource.getTvShowRecommendations(id);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> removeTvShowToWatchlist(TvShowDetail tvShow) {
+    // TODO: implement removeTvShowToWatchlist
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, String>> saveTvShowToWatchlist(TvShowDetail tvShow) {
+    // TODO: implement saveTvShowToWatchlist
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<TvShow>>> searchTvShows(String query) async {
+    try {
+      final result = await remoteDataSource.searchTvShows(query);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
   }
 }
