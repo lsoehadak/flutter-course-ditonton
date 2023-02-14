@@ -111,7 +111,7 @@ class TvShowDetailModel extends Equatable {
       backdropPath: backdropPath,
       episodeRunTime: episodeRunTime,
       firstAirDate: firstAirDate,
-      genres: genres,
+      genres: this.genres.map((genre) => genre.toEntity()).toList(),
       id: id,
       inProduction: inProduction,
       languages: languages,
