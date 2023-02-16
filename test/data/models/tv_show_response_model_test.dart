@@ -6,22 +6,21 @@ import 'package:flutter_test/flutter_test.dart';
 
 import '../../json_reader.dart';
 
-// TODO create tv_show_now_playing.json dummy
 void main() {
   final tTvShowModel = TvShowModel(
     backdropPath: "/path.jpg",
-    genreIds: [1, 2, 3, 4],
+    genreIds: [1],
     id: 1,
     overview: "Overview",
     popularity: 1.0,
     posterPath: "/path.jpg",
     voteAverage: 1.0,
     voteCount: 1,
-    firstAirDate: 'firstAirDate',
+    firstAirDate: '2021-09-03',
     name: 'name',
-    originCountry: ["1", "2"],
-    originalLanguage: 'originalLanguage',
-    originalName: 'originalName',
+    originCountry: ["US"],
+    originalLanguage: 'Original Language',
+    originalName: 'Original Name',
   );
 
   final tTvShowResponseModel =
@@ -31,7 +30,7 @@ void main() {
     test('should return a valid model from JSON', () async {
       // arrange
       final Map<String, dynamic> jsonMap =
-          json.decode(readJson('dummy_data/now_playing.json'));
+          json.decode(readJson('dummy_data/now_playing_tv_show.json'));
       // act
       final result = TvShowResponse.fromJson(jsonMap);
       // assert
@@ -50,18 +49,18 @@ void main() {
         "results": [
           {
             "backdrop_path": "/path.jpg",
-            "genre_ids": [1, 2, 3, 4],
+            "genre_ids": [1],
             "id": 1,
             "overview": "Overview",
             "popularity": 1.0,
             "poster_path": "/path.jpg",
             "vote_average": 1.0,
             "vote_count": 1,
-            "firstAirDate": "firstAirDate",
+            "first_air_date": "2021-09-03",
             "name": "name",
-            "originCountry": ["1", "2"],
-            "originalLanguage": "originalLanguage",
-            "originalName": "originalName",
+            "origin_country": ["US"],
+            "original_language": "Original Language",
+            "original_name": "Original Name",
           }
         ],
       };
