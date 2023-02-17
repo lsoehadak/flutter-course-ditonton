@@ -10,6 +10,8 @@ import 'package:ditonton/presentation/provider/tv_show_list_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'now_playing_tv_show_page.dart';
+
 class TvShowPage extends StatefulWidget {
   static const ROUTE_NAME = '/tv-shows';
 
@@ -47,9 +49,10 @@ class _TvShowPageState extends State<TvShowPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Now Playing',
-              style: kHeading6,
+            _buildSubHeading(
+              title: 'Now Playing',
+              onTap: () => Navigator.pushNamed(
+                  context, NowPlayingTvShowsPage.ROUTE_NAME),
             ),
             Consumer<TvShowListNotifier>(builder: (context, data, child) {
               final state = data.nowPlayingState;

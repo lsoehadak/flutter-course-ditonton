@@ -4,6 +4,7 @@ import 'package:ditonton/injection.dart' as di;
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
+import 'package:ditonton/presentation/pages/now_playing_tv_show_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/popular_tv_show_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
@@ -17,6 +18,7 @@ import 'package:ditonton/presentation/pages/watchlist_tv_shows_page.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
+import 'package:ditonton/presentation/provider/now_playing_tv_shows_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_tv_shows_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
@@ -62,6 +64,9 @@ class MyApp extends StatelessWidget {
           create: (_) => di.locator<TvShowListNotifier>(),
         ),
         ChangeNotifierProvider(
+          create: (_) => di.locator<NowPlayingTvShowsNotifier>(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => di.locator<PopularTvShowsNotifier>(),
         ),
         ChangeNotifierProvider(
@@ -91,6 +96,8 @@ class MyApp extends StatelessWidget {
           switch (settings.name) {
             case '/home':
               return MaterialPageRoute(builder: (_) => HomeMoviePage());
+            case NowPlayingTvShowsPage.ROUTE_NAME:
+              return MaterialPageRoute(builder: (_) => NowPlayingTvShowsPage());
             case PopularMoviesPage.ROUTE_NAME:
               return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
             case PopularTvShowsPage.ROUTE_NAME:
